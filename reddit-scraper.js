@@ -3,6 +3,7 @@ Scrapes r/theonion and r/nottheonion for post titles.
 Writes those titles in JSON.
 
 TODO: Find a way to make the sub distinct.
+TODO: Figure out what line 29 does.
 */
 
 var cheerio = require('cheerio');
@@ -18,16 +19,13 @@ function parse(html) {
 
     $("div#siteTable > div.link").each(function(idx) {
         var title = $(this).find('p.title > a.title').text().trim();
-        var post_object = '{ "sub" : "theonion", "title" : "' + title + '"}';
-        console.log(post_object);
-        posts.push(post_object);
+        posts.push({ sub: "theonion", content: title });
     });
 
     var posts_as_json = JSON.stringify(posts);
     return posts_as_json;
 }
 
-// what this do?
 var append = file => content => fsp.appendFile(file, content);
 
 rp(onion_url)
