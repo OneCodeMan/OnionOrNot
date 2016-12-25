@@ -1,25 +1,37 @@
 /*
 Scrapes r/theonion and r/nottheonion for post titles.
 Writes those titles in JSON.
+Fun fact: I have to manually remove certain '[', '}', ']' characters,
+Not sure why they are popping up.
 
-TODO: Find a way to make the sub distinct.
-TODO: Figure out what line 29 does.
+I use this to validate the json produced: http://jsonlint.com/
+I use this to format the json produced: http://jsonviewer.stack.hu/
+
+TODO: Figure out what line 41 does.
 */
 
 var cheerio = require('cheerio');
 var rp = require('request-promise');
 var fsp = require('fs-promise');
 
-var onion_url = "https://www.reddit.com/r/theonion";
-var not_onion_url = "https://www.reddit.com/r/nottheonion";
+var onion_urls = ["https://www.reddit.com/r/TheOnion",
+                "https://www.reddit.com/r/TheOnion/top/?sort=top&t=all",
+                "https://www.reddit.com/r/TheOnion/top/?sort=top&t=all&count=25&after=t3_4qbchk",
+                "https://www.reddit.com/r/TheOnion/top/?sort=top&t=all&count=50&after=t3_3e3q4z"];
+
+var not_onion_urls = ["https://www.reddit.com/r/nottheonion",
+                    "https://www.reddit.com/r/nottheonion/top/",
+                    "https://www.reddit.com/r/nottheonion/top/?count=25&after=t3_54470h",
+                    "https://www.reddit.com/r/nottheonion/top/?count=50&after=t3_50lswv"];
 var posts = [];
 
-function parse(html) {
+function parse(html, subreddit) {
+    var subreddit = subreddit;
     var $ = cheerio.load(html);
 
     $("div#siteTable > div.link").each(function(idx) {
         var title = $(this).find('p.title > a.title').text().trim();
-        posts.push({ sub: "theonion", content: title });
+        posts.push({ sub: subreddit, content: title });
     });
 
     var posts_as_json = JSON.stringify(posts);
@@ -28,14 +40,19 @@ function parse(html) {
 
 var append = file => content => fsp.appendFile(file, content);
 
-rp(onion_url)
-    .then(parse)
-    .then(append('onion.json'))
-    .then(() => console.log('Onion Success'))
-    .catch(err => console.log('Error: ', err));
+for(let i = 0; i < onion_urls.length; i++) {
+    var onion_url = onion_urls[i];
+    var not_onion_url = not_onion_urls[i];
 
-rp(not_onion_url)
-    .then(parse)
-    .then(append('not_onion.json'))
-    .then(() => console.log('Not Onion Success'))
-    .catch(err => console.log('Error: ', err));
+    rp(onion_url)
+        .then(html => parse(html, "theonion"))
+        .then(append('onionornotdata.json'))
+        .then(() => console.log('Onion Success'))
+        .catch(err => console.log('Error: ', err));
+
+    rp(not_onion_url)
+        .then(html => parse(html, "nottheonion"))
+        .then(append('onionornotdata.json'))
+        .then(() => console.log('Not Onion Success'))
+        .catch(err => console.log('Error: ', err));
+}
