@@ -1,8 +1,8 @@
 /*
 Scrapes r/theonion and r/nottheonion for post titles.
 Writes those titles in JSON.
-Fun fact: I have to manually remove certain '[', '}', ']' characters,
-Not sure why they are popping up.
+Fun fact: I have to manually remove certain '[', '}', ']' characters from
+the generated JSON, Not sure why they are popping up.
 
 I use this to validate the json produced: http://jsonlint.com/
 I use this to format the json produced: http://jsonviewer.stack.hu/
