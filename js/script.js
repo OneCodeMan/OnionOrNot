@@ -1,19 +1,69 @@
 /*
-TODO: Make the GET fetch as clean as possible.
-TODO: Check that you can identify each post by their "sub" property
-TODO: Randomly generate a post
-TODO: Display post on web page
 TODO: Find a way to avoid duplication of posts? Like posts occuring again.
-TODO: 
+TODO: Clean the code up lolz
 */
+function generateRandNum(min, max) {
+    minimum = Math.ceil(min);
+    maximum = Math.floor(max);
+    return Math.floor(Math.random() * (maximum - minimum)) + minimum;
+}
 
+function generateNew(json_data) {
+    var rand_num = generateRandNum(0, json_data.length);
+    var rand_post = json_data[rand_num];
+    return rand_post;
+}
 
-var request = new XMLHttpRequest();
+var post_title = document.getElementById("post-title");
+var onion_button = document.getElementById("onion-chosen");
+var not_onion_button = document.getElementById("not-onion-chosen");
+
+var req = new XMLHttpRequest();
 var json_url = "https://api.myjson.com/bins/s474n";
-request.open('GET', json_url);
+var score = 0;
 
-request.onload = function() {
-    var json_data = JSON.parse(request.responseText);
+console.log("Score: ", score);
+
+req.open('GET', json_url);
+req.onload = function() {
+
+    if (req.status === 200) {
+        var json_data = JSON.parse(req.responseText);
+        var rand_post = generateNew(json_data);
+
+        post_title.innerHTML = rand_post.content;
+
+        onion_button.onclick = function() {
+            if (rand_post.sub === "theonion") {
+                score++;
+                console.log("Score: ", score);
+            } else {
+                score--;
+                console.log("Score: ", score);
+            }
+
+            // update title
+            rand_post = generateNew(json_data);
+            post_title.innerHTML = rand_post.content;
+
+        }
+
+        not_onion_button.onclick = function() {
+            if (rand_post.sub === "nottheonion") {
+                score++;
+                console.log("Score: ", score);
+            } else {
+                score--;
+                console.log("Score: ", score);
+            }
+
+            // update title
+            rand_post = generateNew(json_data);
+            post_title.innerHTML = rand_post.content;
+        }
+
+    } else {
+        console.log("Error");
+    }
 };
-
-request.send();
+req.send();
