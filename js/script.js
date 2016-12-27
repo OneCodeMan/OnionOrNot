@@ -36,11 +36,11 @@ req.onload = function() {
         onion_button.onclick = function() {
             if (rand_post.sub === "theonion") {
                 score++;
-                score_display.innerHTML = score;
             } else {
                 score--;
-                score_display.innerHTML = score;
             }
+
+            score_display.innerHTML = score;
 
             // update title
             rand_post = generateNewPost(json_data);
@@ -60,12 +60,11 @@ req.onload = function() {
         not_onion_button.onclick = function() {
             if (rand_post.sub === "nottheonion") {
                 score++;
-                score_display.innerHTML = score;
             } else {
                 score--;
-                score_display.innerHTML = score;
             }
 
+            score_display.innerHTML = score;
             // update title
             rand_post = generateNewPost(json_data);
             var index = json_data.indexOf(rand_post);
