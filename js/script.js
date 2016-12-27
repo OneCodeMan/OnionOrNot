@@ -1,5 +1,4 @@
 /*
-TODO: Find a way to avoid duplication of posts? Like posts occuring again.
 TODO: Clean the code up lolz
 */
 function generateRandNum(min, max) {
@@ -10,6 +9,7 @@ function generateRandNum(min, max) {
 
 function generateNew(json_data) {
     var rand_num = generateRandNum(0, json_data.length);
+    console.log("generateNew length: ", json_data.length);
     var rand_post = json_data[rand_num];
     return rand_post;
 }
@@ -44,6 +44,15 @@ req.onload = function() {
 
             // update title
             rand_post = generateNew(json_data);
+            var index = json_data.indexOf(rand_post);
+
+
+            console.log("Index: ", index);
+            console.log("Length of json_data: ", json_data.length);
+            json_data.splice(index, 1);
+            console.log("Length of json_data after splice: ", json_data.length);
+
+
             post_title.innerHTML = rand_post.content;
 
         }
@@ -59,6 +68,14 @@ req.onload = function() {
 
             // update title
             rand_post = generateNew(json_data);
+            var index = json_data.indexOf(rand_post);
+
+
+            console.log("Index: ", index);
+            console.log("Length of json_data: ", json_data.length);
+            json_data.splice(index, 1);
+            console.log("Length of json_data after splice: ", json_data.length);
+
             post_title.innerHTML = rand_post.content;
         }
 
