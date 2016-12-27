@@ -1,4 +1,10 @@
 /*
+
+The JSON format
+[
+    { content: #string#, sub: "nottheonion" / "theonion" }, ...
+]
+
 TODO: Clean the code up lolz
 */
 function generateRandNum(min, max) {
@@ -65,6 +71,7 @@ req.onload = function() {
             }
 
             score_display.innerHTML = score;
+
             // update title
             rand_post = generateNewPost(json_data);
             var index = json_data.indexOf(rand_post);
