@@ -36,11 +36,8 @@ req.onload = function() {
 
 req.send();
 
-/*
-- Updates post title and score
-TODO: splice that sub to avoid duplicates
-*/
-update = function(user_guess) {
+//
+var update = function(user_guess) {
     if (user_guess != null) {
         if (options[user_guess] == json_data[index].sub) {
             score++;
@@ -51,5 +48,6 @@ update = function(user_guess) {
     }
     index = Math.floor(Math.random() * (json_data.length + 1));
     post_title.innerHTML = json_data[index].content;
+    json_data.splice(index, 1);
     score_display.innerHTML = score;
 }
