@@ -36,7 +36,7 @@ req.onload = function() {
 
 req.send();
 
-//
+// updates score, updates title, and removes already used indices
 var update = function(user_guess) {
     if (user_guess != null) {
         if (options[user_guess] == json_data[index].sub) {
