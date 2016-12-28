@@ -13,7 +13,7 @@ var not_onion_button = document.getElementById("not-onion-chosen");
 var score_display = document.getElementById("score");
 
 var req = new XMLHttpRequest();
-var json_url = "https://api.myjson.com/bins/s474n";
+var json_url = "https://api.myjson.com/bins/1gzthn";
 var score = 0;
 var index = -1;
 var options = ["theonion", "nottheonion"];
@@ -24,8 +24,8 @@ req.onload = function() {
     if (req.status === 200) {
         json_data = JSON.parse(req.responseText);
 
-        onion_button.onclick = function() { update(0); }
-        not_onion_button.onclick = function() { update(1); }
+        onion_button.onclick = () => update(0);
+        not_onion_button.onclick = () => update(1); 
         update(null);
 
     } else {
@@ -46,7 +46,7 @@ var update = function(user_guess) {
         score_display.innerHTML = score;
     }
     index = Math.floor(Math.random() * (json_data.length + 1));
-    post_title.innerHTML = json_data[index].content;
+    post_title.innerHTML = json_data[index].content; // this is what i'd change to scale size
     json_data.splice(index, 1);
     score_display.innerHTML = score;
 }
