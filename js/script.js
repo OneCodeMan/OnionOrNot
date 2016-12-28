@@ -18,7 +18,6 @@ var score = 0;
 var index = -1;
 var options = ["theonion", "nottheonion"];
 
-
 req.open('GET', json_url);
 req.onload = function() {
 
