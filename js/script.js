@@ -22,7 +22,11 @@ req.open('GET', json_url);
 req.onload = function() {
 
     if (req.status === 200) {
-        json_data = JSON.parse(req.responseText);
+        json_raw_data = JSON.parse(req.responseText);
+        json_data = Array.from(new Set(json_raw_data));
+
+        console.log(json_raw_data.length);
+        console.log(json_data.length);
 
         onion_button.onclick = () => update(0);
         not_onion_button.onclick = () => update(1);
