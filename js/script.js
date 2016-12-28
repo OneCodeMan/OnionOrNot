@@ -13,7 +13,7 @@ var not_onion_button = document.getElementById("not-onion-chosen");
 var score_display = document.getElementById("score");
 
 var req = new XMLHttpRequest();
-var json_url = "https://api.myjson.com/bins/1gzthn";
+var json_url = "https://api.myjson.com/bins/1505d7";
 var score = 0;
 var index = -1;
 var options = ["theonion", "nottheonion"];
@@ -25,7 +25,7 @@ req.onload = function() {
         json_data = JSON.parse(req.responseText);
 
         onion_button.onclick = () => update(0);
-        not_onion_button.onclick = () => update(1); 
+        not_onion_button.onclick = () => update(1);
         update(null);
 
     } else {
