@@ -1,9 +1,10 @@
 * {
     font-family: 'Libre Baskerville', 'Helvetica', serif;
+    color: #F2F1EF;
 }
 
 body {
-    background: #FCFCFC;
+    background: #68C3A3;
 }
 
 #container {
@@ -12,7 +13,6 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: #323232;
 }
 
 #app-title {
