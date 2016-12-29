@@ -5,6 +5,9 @@ The JSON format
     { content: #string#, sub: "nottheonion" / "theonion" }, ...
 ]
 
+TODO: Remove duplicate JSON data
+TODO: Add a win/loss condition
+
 */
 
 var post_title = document.getElementById("post-title");
