@@ -24,6 +24,10 @@ function removeDuplicateObjects(arr, property) {
     return new_arr;
 }
 
+function gameOver(score) {
+    post_title.innerHTML = "Thanks for playing. Score: " + score;
+}
+
 var post_title = document.getElementById("post-title");
 var onion_button = document.getElementById("onion-chosen");
 var not_onion_button = document.getElementById("not-onion-chosen");
@@ -63,7 +67,7 @@ var update = function(user_guess) {
             } else {
                 score--;
                 if (score < 1) {
-                    post_title.innerHTML = "Thanks for playing. Score: " + score;
+                    gameOver(score);
                 }
             }
             score_display.innerHTML = score;
@@ -73,6 +77,6 @@ var update = function(user_guess) {
         json_data.splice(index, 1);
         score_display.innerHTML = score;
     } else {
-        post_title.innerHTML = "Thanks for playing. Score: " + score;
+        gameOver(score);
     }
 }
