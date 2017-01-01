@@ -35,7 +35,7 @@ var score_display = document.getElementById("score");
 
 var req = new XMLHttpRequest();
 var json_url = "https://api.myjson.com/bins/1505d7";
-var score = 5;
+var score = 3;
 var index = 0;
 var options = ["theonion", "nottheonion"];
 
