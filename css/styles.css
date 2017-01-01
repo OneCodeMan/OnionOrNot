@@ -4,7 +4,7 @@
 }
 
 body {
-    background: #03A678;
+    background: #4DAF7C;
 }
 
 #container {
@@ -35,7 +35,6 @@ body {
 #btn-group {
     display: flex;
     justify-content: space-between;
-    margin-top: -60px;
 }
 
 .btn {
@@ -51,20 +50,35 @@ body {
 }
 
 .btn:hover {
-    animation: scaleSlowly 0.3s normal forwards;
+    animation: buttonHover 1s normal forwards;
 }
 
-@keyframes scaleSlowly {
-    from {
+@keyframes buttonHover {
+    0% {
         -ms-transform: scale(1,1); /* IE 9 */
         -webkit-transform: scale(1,1); /* Safari */
         transform: scale(1,1); /* Standard syntax */
+
+        border-bottom-color: #F2F1EF;
     }
 
-    to {
+    10% {
+        border-bottom-color: #323232;
+    }
+
+    90% {
+        border-bottom-color: #323232;
+        border-left-color: #323232;
+        border-right-color: #323232;
+    }
+
+    100% {
         -ms-transform: scale(1.05,1.05); /* IE 9 */
         -webkit-transform: scale(1.05,1.05); /* Safari */
         transform: scale(1.05,1.05); /* Standard syntax */
+
+        border-color: #323232;
+        color: #323232;
     }
 }
 
@@ -89,6 +103,7 @@ li {
 
 li a {
     text-decoration: underline;
+    color: #323232;
 }
 
 @media screen and (max-width: 1000px) {
