@@ -17,7 +17,7 @@ var score_display = document.getElementById("score");
 
 var req = new XMLHttpRequest();
 var json_url = "https://api.myjson.com/bins/1505d7";
-var score = 0;
+var score = 5;
 var index = 0;
 var options = ["theonion", "nottheonion"];
 
@@ -40,7 +40,7 @@ req.send();
 
 // updates score, updates title, and removes already used indices
 var update = function(user_guess) {
-    if (json_data.length > 0) {
+    if (json_data.length > 0 || score >= 0) {
         if (user_guess != null) {
             if (options[user_guess] == json_data[index].sub) {
                 score++;
