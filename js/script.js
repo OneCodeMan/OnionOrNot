@@ -10,6 +10,21 @@ TODO: Add a win/loss condition
 
 */
 
+function removeDuplicateObjects(arr, property) {
+    var new_arr = [];
+    var lookup = {};
+
+    for (var i in arr) {
+        lookup[arr[i][property]] = arr[i];
+    }
+
+    for (i in lookup) {
+        new_arr.push(lookup[i]);
+    }
+
+    return new_arr;
+}
+
 var post_title = document.getElementById("post-title");
 var onion_button = document.getElementById("onion-chosen");
 var not_onion_button = document.getElementById("not-onion-chosen");
@@ -25,7 +40,11 @@ req.open('GET', json_url);
 req.onload = function() {
 
     if (req.status === 200) {
-        json_data = JSON.parse(req.responseText);
+        var json_data_raw = JSON.parse(req.responseText);
+        console.log(json_data_raw.length);
+
+        json_data = removeDuplicateObjects(json_data_raw, "content");
+        console.log(json_data.length);
 
         onion_button.onclick = () => update(0);
         not_onion_button.onclick = () => update(1);
