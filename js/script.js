@@ -27,6 +27,7 @@ function removeDuplicateObjects(arr, property) {
 var post_title = document.getElementById("post-title");
 var onion_button = document.getElementById("onion-chosen");
 var not_onion_button = document.getElementById("not-onion-chosen");
+var replay = document.getElementById("replay");
 var score_display = document.getElementById("score");
 
 var req = new XMLHttpRequest();
@@ -68,7 +69,10 @@ var update = function(user_guess) {
         index = Math.floor(Math.random() * (json_data.length - 1));
 
         if (score < 1) {
-            post_title.innerHTML = "Thanks for playing. Score: " + score; 
+            post_title.innerHTML = "Thanks for playing.";
+            replay.className = "btn";
+            onion_button.className += "hidden";
+            not_onion_button.className += "hidden";
         } else {
             post_title.innerHTML = json_data[index].content;
         }
