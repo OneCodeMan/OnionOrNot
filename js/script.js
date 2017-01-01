@@ -66,7 +66,9 @@ var update = function(user_guess) {
                 score++;
             } else {
                 score--;
-                console.log(score);
+                if (score < 1) {
+                    console.log(score);
+                }
             }
             score_display.innerHTML = score;
         }
