@@ -24,10 +24,6 @@ function removeDuplicateObjects(arr, property) {
     return new_arr;
 }
 
-function gameOver(score) {
-    post_title.innerHTML = "Thanks for playing. Score: " + score;
-}
-
 var post_title = document.getElementById("post-title");
 var onion_button = document.getElementById("onion-chosen");
 var not_onion_button = document.getElementById("not-onion-chosen");
@@ -66,17 +62,22 @@ var update = function(user_guess) {
                 score++;
             } else {
                 score--;
-                if (score < 1) {
-                    console.log(score);
-                }
             }
             score_display.innerHTML = score;
         }
         index = Math.floor(Math.random() * (json_data.length - 1));
-        post_title.innerHTML = json_data[index].content; // this is what i'd change to scale size
+
+        if (score < 1) {
+            post_title.innerHTML = "Thanks for playing. Score: " + score; 
+        } else {
+            post_title.innerHTML = json_data[index].content;
+        }
+        // more readable than:
+        //post_title.innerHTML = score < 1 ? "Thanks for playing. Score: " + score : json_data[index].content;
+
         json_data.splice(index, 1);
         score_display.innerHTML = score;
     } else {
-        gameOver(score);
+        post_title.innerHTML = "Thanks for playing. Score: " + score;
     }
 }
