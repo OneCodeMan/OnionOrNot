@@ -41,10 +41,8 @@ req.onload = function() {
 
     if (req.status === 200) {
         var json_data_raw = JSON.parse(req.responseText);
-        console.log(json_data_raw.length);
 
         json_data = removeDuplicateObjects(json_data_raw, "content");
-        console.log(json_data.length);
 
         onion_button.onclick = () => update(0);
         not_onion_button.onclick = () => update(1);
