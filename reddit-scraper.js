@@ -14,12 +14,12 @@ var cheerio = require('cheerio');
 var rp = require('request-promise');
 var fsp = require('fs-promise');
 
-var onion_urls = ["https://www.reddit.com/r/TheOnion",
+var onionUrls = ["https://www.reddit.com/r/TheOnion",
                 "https://www.reddit.com/r/TheOnion/top/?sort=top&t=all",
                 "https://www.reddit.com/r/TheOnion/top/?sort=top&t=all&count=25&after=t3_4qbchk",
                 "https://www.reddit.com/r/TheOnion/top/?sort=top&t=all&count=50&after=t3_3e3q4z"];
 
-var not_onion_urls = ["https://www.reddit.com/r/nottheonion",
+var notOnionUrls = ["https://www.reddit.com/r/nottheonion",
                     "https://www.reddit.com/r/nottheonion/top/",
                     "https://www.reddit.com/r/nottheonion/top/?count=25&after=t3_54470h",
                     "https://www.reddit.com/r/nottheonion/top/?count=50&after=t3_50lswv"];
@@ -34,23 +34,23 @@ function parse(html, subreddit) {
         posts.push({ sub: subreddit, content: title });
     });
 
-    var posts_as_json = JSON.stringify(posts);
-    return posts_as_json;
+    var postsAsJSON = JSON.stringify(posts);
+    return postsAsJSON;
 }
 
 var append = file => content => fsp.appendFile(file, content);
 
-for(let i = 0; i < onion_urls.length; i++) {
-    var onion_url = onion_urls[i];
-    var not_onion_url = not_onion_urls[i];
+for(let i = 0; i < onionUrls.length; i++) {
+    var onionUrl = onionUrls[i];
+    var notOnionUrl = notOnionUrls[i];
 
-    rp(onion_url)
+    rp(onionUrl)
         .then(html => parse(html, "theonion"))
         .then(append('onionornotdata.json'))
         .then(() => console.log('Onion Success'))
         .catch(err => console.log('Error: ', err));
 
-    rp(not_onion_url)
+    rp(notOnionUrl)
         .then(html => parse(html, "nottheonion"))
         .then(append('onionornotdata.json'))
         .then(() => console.log('Not Onion Success'))
