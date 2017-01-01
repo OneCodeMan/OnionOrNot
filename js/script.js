@@ -46,7 +46,9 @@ var update = function(user_guess) {
                 score++;
             } else {
                 score--;
-                post_title.innerHTML = "Thanks for playing. Score: " + score;
+                if (score < 1) {
+                    post_title.innerHTML = "Thanks for playing. Score: " + score;
+                }
             }
             score_display.innerHTML = score;
         }
