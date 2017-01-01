@@ -71,8 +71,8 @@ var update = function(user_guess) {
         if (score < 1) {
             post_title.innerHTML = "Thanks for playing.";
             replay.className = "btn";
-            onion_button.className += "hidden";
-            not_onion_button.className += "hidden";
+            onion_button.className += " hidden";
+            not_onion_button.className += " hidden";
         } else {
             post_title.innerHTML = json_data[index].content;
         }
