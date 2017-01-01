@@ -10,7 +10,7 @@ git push origin gh-pages
 */
 
 function removeDuplicateObjects(arr, property) {
-    var new_arr = [];
+    var newArr = [];
     var lookup = {};
 
     for (var i in arr) {
@@ -18,34 +18,34 @@ function removeDuplicateObjects(arr, property) {
     }
 
     for (i in lookup) {
-        new_arr.push(lookup[i]);
+        newArr.push(lookup[i]);
     }
 
-    return new_arr;
+    return newArr;
 }
 
-var post_title = document.getElementById("post-title");
-var onion_button = document.getElementById("onion-chosen");
-var not_onion_button = document.getElementById("not-onion-chosen");
+var postTitle = document.getElementById("post-title");
+var onionButton = document.getElementById("onion-chosen");
+var notOnionButton = document.getElementById("not-onion-chosen");
 var replay = document.getElementById("replay");
-var score_display = document.getElementById("score");
+var scoreDisplay = document.getElementById("score");
 
 var req = new XMLHttpRequest();
-var json_url = "https://api.myjson.com/bins/1505d7";
+var jsonUrl = "https://api.myjson.com/bins/1505d7";
 var score = 3;
 var index = 0;
 var options = ["theonion", "nottheonion"];
 
-req.open('GET', json_url);
+req.open('GET', jsonUrl);
 req.onload = function() {
 
     if (req.status === 200) {
-        var json_data_raw = JSON.parse(req.responseText);
+        var jsonRawData = JSON.parse(req.responseText);
 
-        json_data = removeDuplicateObjects(json_data_raw, "content");
+        jsonData = removeDuplicateObjects(jsonRawData, "content");
 
-        onion_button.onclick = () => update(0);
-        not_onion_button.onclick = () => update(1);
+        onionButton.onclick = () => update(0);
+        notOnionButton.onclick = () => update(1);
         update(null);
 
     } else {
@@ -56,33 +56,33 @@ req.onload = function() {
 req.send();
 
 // updates score, updates title, and removes already used indices
-var update = function(user_guess) {
-    if (json_data.length > 0) {
-        if (user_guess != null) {
-            if (options[user_guess] == json_data[index].sub) {
+var update = function(userGuess) {
+    if (jsonData.length > 0) {
+        if (userGuess != null) {
+            if (options[userGuess] == jsonData[index].sub) {
                 score++;
             } else {
                 score--;
             }
-            score_display.innerHTML = score;
+            scoreDisplay.innerHTML = score;
         }
-        index = Math.floor(Math.random() * (json_data.length - 1));
+        index = Math.floor(Math.random() * (jsonData.length - 1));
 
         if (score < 1) {
-            post_title.innerHTML = "Thanks for playing.";
+            postTitle.innerHTML = "Thanks for playing.";
             replay.className = "btn";
-            onion_button.className += " hidden";
-            not_onion_button.className += " hidden";
+            onionButton.className += " hidden";
+            notOnionButton.className += " hidden";
         } else {
-            post_title.innerHTML = json_data[index].content;
+            postTitle.innerHTML = jsonData[index].content;
         }
         // more readable than:
         //post_title.innerHTML = score < 1 ? "Thanks for playing. Score: " + score : json_data[index].content;
 
-        json_data.splice(index, 1);
-        score_display.innerHTML = score;
+        jsonData.splice(index, 1);
+        scoreDisplay.innerHTML = score;
     } else {
-        post_title.innerHTML = "Thanks for playing. Score: " + score;
+        postTitle.innerHTML = "Thanks for playing. Score: " + score;
     }
 }
 
