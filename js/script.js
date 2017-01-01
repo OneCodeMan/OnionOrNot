@@ -40,12 +40,13 @@ req.send();
 
 // updates score, updates title, and removes already used indices
 var update = function(user_guess) {
-    if (json_data.length > 0 || score >= 0) {
+    if (json_data.length > 0) {
         if (user_guess != null) {
             if (options[user_guess] == json_data[index].sub) {
                 score++;
             } else {
                 score--;
+                post_title.innerHTML = "Thanks for playing. Score: " + score;
             }
             score_display.innerHTML = score;
         }
