@@ -24,18 +24,15 @@ function removeDuplicateObjects(arr, property) {
     return new_arr;
 }
 
-function gameOver(score) {
-    post_title.innerHTML = "Thanks for playing. Score: " + score;
-}
-
 var post_title = document.getElementById("post-title");
 var onion_button = document.getElementById("onion-chosen");
 var not_onion_button = document.getElementById("not-onion-chosen");
+var replay = document.getElementById("replay");
 var score_display = document.getElementById("score");
 
 var req = new XMLHttpRequest();
 var json_url = "https://api.myjson.com/bins/1505d7";
-var score = 5;
+var score = 3;
 var index = 0;
 var options = ["theonion", "nottheonion"];
 
@@ -66,15 +63,29 @@ var update = function(user_guess) {
                 score++;
             } else {
                 score--;
-                console.log(score);
             }
             score_display.innerHTML = score;
         }
         index = Math.floor(Math.random() * (json_data.length - 1));
-        post_title.innerHTML = json_data[index].content; // this is what i'd change to scale size
+
+        if (score < 1) {
+            post_title.innerHTML = "Thanks for playing.";
+            replay.className = "btn";
+            onion_button.className += " hidden";
+            not_onion_button.className += " hidden";
+        } else {
+            post_title.innerHTML = json_data[index].content;
+        }
+        // more readable than:
+        //post_title.innerHTML = score < 1 ? "Thanks for playing. Score: " + score : json_data[index].content;
+
         json_data.splice(index, 1);
         score_display.innerHTML = score;
     } else {
-        gameOver(score);
+        post_title.innerHTML = "Thanks for playing. Score: " + score;
     }
+}
+
+replay.onclick = function() {
+    window.location.reload(true);
 }
