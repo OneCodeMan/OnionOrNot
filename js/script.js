@@ -85,3 +85,7 @@ var update = function(user_guess) {
         post_title.innerHTML = "Thanks for playing. Score: " + score;
     }
 }
+
+replay.onclick = function() {
+    window.location.reload(true);
+}
