@@ -28,11 +28,12 @@ var postTitle = document.getElementById("post-title");
 var onionButton = document.getElementById("onion-chosen");
 var notOnionButton = document.getElementById("not-onion-chosen");
 var replay = document.getElementById("replay");
-var scoreDisplay = document.getElementById("score");
+var livesDisplay = document.getElementById("lives");
 
 var req = new XMLHttpRequest();
 var jsonUrl = "https://api.myjson.com/bins/1505d7";
-var score = 3;
+var lives = 3;
+var score = 0;
 var index = 0;
 var options = ["theonion", "nottheonion"];
 
@@ -62,14 +63,14 @@ var update = function(userGuess) {
             if (options[userGuess] == jsonData[index].sub) {
                 score++;
             } else {
-                score--;
+                lives--;
             }
-            scoreDisplay.innerHTML = score;
+            livesDisplay.innerHTML = lives;
         }
         index = Math.floor(Math.random() * (jsonData.length - 1));
 
-        if (score < 1) {
-            postTitle.innerHTML = "Thanks for playing.";
+        if (lives < 1) {
+            postTitle.innerHTML = "Thanks for playing. Score: " + score;
             replay.className = "btn";
             onionButton.className += " hidden";
             notOnionButton.className += " hidden";
@@ -80,7 +81,7 @@ var update = function(userGuess) {
         //post_title.innerHTML = score < 1 ? "Thanks for playing. Score: " + score : json_data[index].content;
 
         jsonData.splice(index, 1);
-        scoreDisplay.innerHTML = score;
+        livesDisplay.innerHTML = lives;
     } else {
         postTitle.innerHTML = "Thanks for playing. Score: " + score;
     }
