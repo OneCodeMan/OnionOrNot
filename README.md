@@ -9,4 +9,4 @@ Data is scraped from r/theonion and r/nottheonion using NodeJS library Cheerio. 
 
 JSON file is being hosted on http://myjson.com/
 
-I made this to practice ES6, AJAX, CSS flexbox, and media queries.
+I made this to practice ES6, AJAX, CSS flexbox, and media queries. I also made this to show how bizarre some of the world can be.
